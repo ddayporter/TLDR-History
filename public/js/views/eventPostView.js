@@ -7,30 +7,32 @@ var EventPostView = function(eventpost){
   $(".eventPosts").prepend(this.$el);
 };
 
+var createButton = $(".createEventPostButton");
+createButton.one("click", function(){
+  event.preventDefault();
+  var data = {  title: $('.formNewEventPost input[name=title]').val(),
+  date: $('.formNewEventPost input[name=date]').val(),
+  photoUrl: $('.formNewEventPost input[name=photoUrl]').val(),
+  wikiPage: $('.formNewEventPost input[name=wikiPage]').val()
+};
+
+$(".formNewEventPost").hide();
+$(".createEventPost").show();
+EventPost.create(data).then( function(response){
+  var eventPost = new EventPost(response);
+  var view = new EventPostView(eventPost);
+});
+
+$(".createEventPostButton").off();
+
+});
+
 EventPostView.new = function(){
   // upon clicking create new Event post button, the button dissapears
   $(".formNewEventPost").show();
   $(".createEventPost").hide();
-  var createButton = $(".createEventPostButton");
   var cancelButton = $(".cancelCreateEventPost");
-  createButton.on("click", function(){
-    event.preventDefault();
-    var data = {  title: $('.formNewEventPost input[name=title]').val(),
-    date: $('.formNewEventPost input[name=date]').val(),
-    photoUrl: $('.formNewEventPost input[name=photoUrl]').val(),
-    wikiPage: $('.formNewEventPost input[name=wikiPage]').val()
-  };
 
-  $(".formNewEventPost").hide();
-  $(".createEventPost").show();
-  EventPost.create(data).then( function(response){
-    var eventPost = new EventPost(response);
-    var view = new EventPostView(eventPost);
-  });
-
-  $(".createEventPostButton").off();
-
-});
 
 cancelButton.on("click", function(){
   event.preventDefault();

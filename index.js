@@ -10,7 +10,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 var path         = require("path");
-var env          = require("./env");
+var fs           = require('fs');
+
+var env = fs.existsSync(__dirname + '/env.js') ? require('./env') : process.env;
+
 // loads dependency that allows put and delete where not supported in html
 var methodOverride = require('method-override');
 // loads module containing all authors contrller actions. not defined yet...
