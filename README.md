@@ -30,6 +30,23 @@ git clone https://github.com/ddayporter/TLDR-History.git
 npm install
 node db/seeds.js
 ```
+
+You'll need to create an ```env.js``` file and then add your Twitter API credentials.
+
+```
+// in env.js
+
+// The below information can be found in the application management page of your Twitter app - https://apps.twitter.com/
+module.exports = {
+  sessionSecret: "candyland",
+  twitter: {
+    consumerKey: "abc123",
+    consumerSecret: "def456",
+    callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
+  }
+}
+
+```
 then run ```nodemon``` to test on localhost:3000.
 
 ## Future Features
